@@ -1,0 +1,106 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-11-10T18:01:57.789Z",
+    "end": "2025-11-10T18:02:35.785Z",
+    "duration": 37996,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "5a60e689-b2d6-48b7-9f5b-49381d953f40",
+      "title": "",
+      "fullFile": "cypress\\e2e\\portalColaborador.cy.js",
+      "file": "cypress\\e2e\\portalColaborador.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "865899bc-3443-4bd3-844f-5026aad42111",
+          "title": "Consulta Dados da Câmera",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Deve validar todos os dados da câmera cadastrada",
+              "fullTitle": "Consulta Dados da Câmera Deve validar todos os dados da câmera cadastrada",
+              "timedOut": null,
+              "duration": 34451,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('cameras').then(dados => {\n  // === Acessa câmera ===\n  cy.contains('td.cdk-column-descricaoCamera', dados.nomeCamera, {\n    timeout: 10000\n  }).parents('tr').find('[tooltip=\"Consultar\"]').click();\n  cy.get('input[formcontrolname=\"descricaoCamera\"]', {\n    timeout: 20000\n  }).should('exist');\n  cy.screenshot('01_abriu_camera');\n  // === Valida campos de texto ===\n  const camposTexto = {\n    descricaoCamera: dados.nomeCamera,\n    enderecoRTSP: dados.enderecoRTSP,\n    latitude: dados.latitude,\n    longitude: dados.longitude,\n    logradouro: dados.logradouro,\n    numero: dados.numero,\n    descricaoBairro: dados.bairro,\n    cidade: dados.cidade,\n    estado: dados.estado,\n    cep: dados.cep\n  };\n  Object.entries(camposTexto).forEach(([campo, valor]) => {\n    const seletor = campo === 'enderecoRTSP' ? `#${campo}` : `input[formcontrolname=\"${campo}\"]`;\n    cy.get(seletor, {\n      timeout: 10000\n    }).should('have.value', valor);\n  });\n  cy.screenshot('02_validou_campos_texto');\n  // === Valida selects ===\n  const camposSelect = {\n    tipoLocal: dados.tipoLocal,\n    tipoStream: dados.tipoEndereco\n  };\n  Object.entries(camposSelect).forEach(([campo, valor]) => {\n    cy.get(`ng-select[formcontrolname=\"${campo}\"] .ng-value-label`, {\n      timeout: 10000\n    }).should('contain.text', valor);\n  });\n  cy.screenshot('03_validou_selects');\n  // === Valida vídeo ===\n  cy.contains('button', 'Visualizar vídeo ', {\n    timeout: 60000\n  }).click();\n  cy.waitForVideo('.modal-content video.vjs-tech');\n  cy.screenshot('04_video_carregado');\n  // === Fecha modal ===\n  cy.get('.modal-content button.btn.btn-primary[type=\"button\"]', {\n    timeout: 10000\n  }).filter(':visible').click();\n  cy.screenshot('05_modal_fechado');\n  // === Encerra sessão ===\n  cy.contains('button', 'Voltar').click();\n  cy.contains('button', 'Sair').click();\n  cy.screenshot('06_logout');\n});",
+              "err": {},
+              "uuid": "8ea3dbb8-2425-45dc-8783-bafeedf6d208",
+              "parentUUID": "865899bc-3443-4bd3-844f-5026aad42111",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8ea3dbb8-2425-45dc-8783-bafeedf6d208"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 34451,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "charts": true,
+        "reportPageTitle": "Portal Colaborador - Validação de Câmeras",
+        "embeddedScreenshots": true,
+        "inlineAssets": true,
+        "saveAllAttempts": false
+      },
+      "version": "6.3.2"
+    }
+  }
+}

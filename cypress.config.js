@@ -1,18 +1,23 @@
-const { defineConfig } = require('cypress')
+const { defineConfig } = require('cypress');
+const mochawesome = require('cypress-mochawesome-reporter/plugin');
 
 module.exports = defineConfig({
-  reporter: 'cypress-mochawesome-reporter',
-  reporterOptions: {
-    charts: true,
-    reportPageTitle: 'Portal Colaborador - Validação de Câmeras',
-    embeddedScreenshots: true,
-    inlineAssets: true,
-    saveAllAttempts: false,
-  },
   e2e: {
+    baseUrl: 'https://www1.portaldaseguranca.sp.gov.br:3200',
+    video: false, // evita salvar vídeos desnecessários
+    reporter: 'cypress-mochawesome-reporter',
+    reporterOptions: {
+      reportDir: 'cypress/reports/html',
+      overwrite: true, // sobrescreve relatórios antigos
+      html: true,
+      json: true,
+      embeddedScreenshots: true, // 🔹 inclui prints dentro do HTML
+      inlineAssets: true,        // 🔹 mantém CSS/JS dentro do HTML
+      charts: true,              // adiciona gráficos de sucesso/falha
+      reportPageTitle: 'Portal do Colaborador - Validação de Câmeras'
+    },
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on)
+      mochawesome(on); // 🔹 registra o plugin corretamente
     },
   },
 });
-

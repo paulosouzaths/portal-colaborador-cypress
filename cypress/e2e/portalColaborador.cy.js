@@ -30,7 +30,6 @@ describe('Consulta Dados da Câmera', () => {
 
       cy.get('input[formcontrolname="descricaoCamera"]', { timeout: 20000 })
         .should('exist')
-      cy.screenshot('01_abriu_camera')
 
       // === Valida campos de texto ===
       const camposTexto = {
@@ -53,7 +52,6 @@ describe('Consulta Dados da Câmera', () => {
 
         cy.get(seletor, { timeout: 10000 }).should('have.value', valor)
       })
-      cy.screenshot('02_validou_campos_texto')
 
       // === Valida selects ===
       const camposSelect = {
@@ -65,23 +63,22 @@ describe('Consulta Dados da Câmera', () => {
         cy.get(`ng-select[formcontrolname="${campo}"] .ng-value-label`, { timeout: 10000 })
           .should('contain.text', valor)
       })
-      cy.screenshot('03_validou_selects')
+      cy.wait(1000)
+      cy.screenshot('01_validou_selects')
 
       // === Valida vídeo ===
       cy.contains('button', 'Visualizar vídeo ', { timeout: 60000 }).click()
       cy.waitForVideo('.modal-content video.vjs-tech')
-      cy.screenshot('04_video_carregado')
+      cy.screenshot('02_video_carregado')
 
       // === Fecha modal ===
       cy.get('.modal-content button.btn.btn-primary[type="button"]', { timeout: 10000 })
         .filter(':visible')
         .click()
-      cy.screenshot('05_modal_fechado')
 
       // === Encerra sessão ===
       cy.contains('button', 'Voltar').click()
       cy.contains('button', 'Sair').click()
-      cy.screenshot('06_logout')
     })
   })
 })
