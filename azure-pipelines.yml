@@ -1,0 +1,35 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Instalar Node.js'
+
+  - script: |
+      npm ci
+      npx cypress verify
+    displayName: 'Instalar dependências e verificar Cypress'
+
+  - script: |
+      npx cypress run --browser chrome --headless
+    displayName: 'Executar testes Cypress'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/results/*.xml'
+      failTaskOnFailedTests: false
+    condition: succeededOrFailed()
+    displayName: 'Publicar resultados no Azure DevOps'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'cypress/reports/html'
+      artifactName: 'RelatorioCypress'
+      publishLocation: 'Container'
+    displayName: 'Publicar relatório HTML'
