@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "cypress": "^15.6.0",
+    "cypress-mochawesome-reporter": "^4.0.2"
+  },
+  "scripts": {
+    "test": "cypress run --reporter mochawesome",
+    "test:azure": "cypress run --reporter cypress-mochawesome-reporter --reporter-options 'reportDir=cypress/results'"
+  }
+}

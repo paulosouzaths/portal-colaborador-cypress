@@ -1,0 +1,14 @@
+{
+    "nomeCamera": "Chateaux France - Lado Esquerdo B",
+    "tipoLocal": "AREA NAO OCUPADA - CONSTRUCAO ABANDONADA",
+    "tipoEndereco": "RTSP",
+    "enderecoRTSP": "rtsp://*************@servidoregide.ddns.net:8556/Interface/Cameras/Media?Camera=Lado Esquerdo B&Profile=Recording2525",
+    "latitude": "-23.539525",
+    "longitude": "-46.526741",
+    "logradouro": "Rua Hercília",
+    "numero": "269",
+    "bairro": "Vila Matilde",
+    "cidade": "São Paulo",
+    "estado": "São Paulo",
+    "cep": "03512050"
+}
