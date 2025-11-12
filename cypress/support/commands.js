@@ -1,3 +1,4 @@
+
 Cypress.Commands.add('waitForVideo', (selector, options = {}) => {
   const timeoutMs = options.timeout || 60000;
 
@@ -45,4 +46,23 @@ Cypress.Commands.add('waitForVideo', (selector, options = {}) => {
     // espera extra curta para estabilizar render antes do screenshot
     return cy.wait(1000);
   });
+});
+
+// Importa addContext para adicionar prints ao relatório Mochawesome
+import addContext from 'mochawesome/addContext';
+
+// 🔹 Comando customizado: adiciona contexto com o screenshot no relatório
+Cypress.Commands.add('addScreenshotContext', (testContext, screenshotName) => {
+  const screenshotPath = `cypress/screenshots/${Cypress.spec.name}/${screenshotName}.png`;
+
+  // Garante que o addContext foi carregado corretamente
+  if (addContext && testContext) {
+    addContext({ test: testContext }, {
+      title: `📸 Evidência - ${screenshotName}`,
+      value: screenshotPath
+    });
+  } else {
+    // fallback: loga no console
+    cy.log(`⚠️ Não foi possível adicionar contexto para ${screenshotName}`);
+  }
 });

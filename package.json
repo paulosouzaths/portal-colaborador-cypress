@@ -1,10 +1,17 @@
 {
+  "name": "portal-colaborador-cypress",
+  "version": "1.0.0",
+  "description": "Testes automatizados do Portal do Colaborador (Cypress + Mochawesome)",
   "devDependencies": {
     "cypress": "^15.6.0",
-    "cypress-mochawesome-reporter": "^4.0.2"
+    "cypress-mochawesome-reporter": "^4.0.2",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^4.4.1",
+    "mochawesome-report-generator": "^6.3.2"
   },
   "scripts": {
-    "test": "cypress run --reporter mochawesome",
-    "test:azure": "cypress run --reporter cypress-mochawesome-reporter --reporter-options 'reportDir=cypress/results'"
+    "test": "npx cypress run --reporter mochawesome",
+    "merge-reports": "npx mochawesome-merge cypress/reports/html/jsons/*.json > cypress/reports/mochawesome.json",
+    "generate-report": "npx marge cypress/reports/mochawesome.json --reportDir cypress/reports/html --reportTitle 'Relatório Portal do Colaborador' --reportPageTitle 'Relatório Portal do Colaborador' --inlineAssets"
   }
 }

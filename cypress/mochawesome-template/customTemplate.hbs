@@ -1,0 +1,30 @@
+{{!-- Custom template for Mochawesome --}}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{reportTitle}}</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #fafafa; color: #333; margin: 20px; }
+    h1 { color: #0078d7; border-bottom: 2px solid #0078d7; padding-bottom: 4px; }
+    .test { margin: 15px 0; padding: 10px; border-radius: 8px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .title { font-weight: bold; font-size: 16px; margin-bottom: 8px; color: #111; }
+    .context { margin-left: 15px; font-size: 14px; color: #444; }
+    .screenshot img { border-radius: 8px; max-width: 100%; box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body>
+  <h1>{{reportTitle}}</h1>
+  {{#each results}}
+    <div class="test">
+      <div class="title">{{this.title}}</div>
+      <div class="context">
+        {{#each this.context}}
+          {{#if this.title}}<div class="subtitle">{{this.title}}</div>{{/if}}
+          {{#if this.value}}<div class="screenshot"><img src="{{this.value}}"/></div>{{/if}}
+        {{/each}}
+      </div>
+    </div>
+  {{/each}}
+</body>
+</html>
