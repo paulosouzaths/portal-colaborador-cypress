@@ -4,6 +4,14 @@
 // Use-o para definir comportamentos globais e registrar plugins.
 // ***********************************************************
 
-// Registra o reporter
+import 'cypress-terminal-report/src/installLogsCollector';
 import 'cypress-mochawesome-reporter/register';
 import './commands';
+
+// Captura screenshot automaticamente quando o teste falha
+Cypress.on('fail', (error, runnable) => {
+  const testName = runnable.parent.title + ' -- ' + runnable.title;
+  const screenshotFileName = testName.replace(/[:\/]/g, ' ');
+  cy.screenshot(screenshotFileName, { capture: 'runner' });
+  throw error; // mantém o comportamento padrão do Cypress
+});
