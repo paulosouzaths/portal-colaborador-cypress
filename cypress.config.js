@@ -17,10 +17,10 @@ module.exports = defineConfig({
       saveJson: true,
       embeddedScreenshots: true,
       inlineAssets: true,
-      showHooks: 'failed',       // só mostra hooks que falharam
+      showHooks: 'failed',
       code: false,
-      sort: 'suite',             // mantém a ordem real dos testes
-      charts: true,              // adiciona gráfico no topo
+      sort: 'suite',
+      charts: true,
       reportTitle: 'Portal do Colaborador - Relatório de Testes',
       quiet: true,
     },
@@ -30,17 +30,16 @@ module.exports = defineConfig({
       require('cypress-mochawesome-reporter/plugin')(on);
       console.log('✅ Mochawesome pronto.');
 
-      // Terminal report (para logs limpos)
       installLogsPrinter(on, {
         printLogsToConsole: 'always',
         printLogsToFile: 'onFail',
         outputRoot: 'cypress/logs',
         outputTarget: {
           'out.txt': 'txt',
-          'out.json': 'json'
+          'out.json': 'json',
         },
         includeSuccessfulHookLogs: false,
-        defaultTrimLength: 300
+        defaultTrimLength: 300,
       });
 
       return config;

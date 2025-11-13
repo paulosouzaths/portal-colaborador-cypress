@@ -6,6 +6,7 @@
 
 import 'cypress-terminal-report/src/installLogsCollector';
 import 'cypress-mochawesome-reporter/register';
+import 'cypress-downloadfile/lib/downloadFileCommand';
 import './commands';
 
 // Captura screenshot automaticamente quando o teste falha

@@ -66,3 +66,15 @@ Cypress.Commands.add('addScreenshotContext', (testContext, screenshotName) => {
     cy.log(`⚠️ Não foi possível adicionar contexto para ${screenshotName}`);
   }
 });
+
+import 'cypress-downloadfile/lib/downloadFileCommand';
+
+Cypress.Commands.add('evidenciaPDF', (nomeArquivo) => {
+  const fs = require('fs');
+  const path = require('path');
+
+  const origem = path.resolve('cypress/assets', 'Mídia KIT.png'); // sua imagem original
+  const destino = path.resolve('cypress/screenshots', `${nomeArquivo}.png`);
+
+  fs.copyFileSync(origem, destino);
+});
