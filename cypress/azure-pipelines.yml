@@ -1,0 +1,32 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  NODE_VERSION: '20.x'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '$(NODE_VERSION)'
+    displayName: 'Install Node'
+
+  - script: npm ci
+    displayName: 'Install npm dependencies'
+
+  - script: npx cypress run --reporter cypress-mochawesome-reporter
+    displayName: 'Run Cypress tests'
+
+  - script: |
+      echo "Gerando relatório (mochawesome)..."
+      npx mochawesome-report-generator cypress/reports/html/mochawesome.json -o cypress/reports/html || true
+    displayName: 'Generate Mochawesome HTML (optional)'
+
+  - script: node automation/uploadTestResults.js
+    displayName: 'Upload test results and screenshots to Azure Test Plans'
+    env:
+      AZ_ORG: '$(AZ_ORG)'
+      AZ_PROJECT: '$(AZ_PROJECT)'
+      AZ_TOKEN: '$(AZURE_PAT)'

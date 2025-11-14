@@ -1,0 +1,7 @@
+{
+  "Teste 1: Consulta Dados da Câmera": { "testCaseId": 8079, "step": 1 },
+  "Teste 2: Editar Dados da Câmera - Endereço RTSP válido": { "testCaseId": 8079, "step": 2 },
+  "Teste 3: Editar Dados da Câmera - Endereço RTSP inválido": { "testCaseId": 8079, "step": 3 },
+  "Teste 4: Consulta Tela do FAQ": { "testCaseId": 8080, "step": 1 },
+  "Teste 5: Consulta Tela do Midia Kit": { "testCaseId": 8081, "step": 1 }
+}
